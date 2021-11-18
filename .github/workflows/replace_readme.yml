@@ -1,0 +1,52 @@
+name: Replace KINDLE README
+
+on:
+  workflow_dispatch:
+
+env:
+  # change env here
+  GITHUB_NAME: yihong0618
+  GITHUB_EMAIL: zouzou0208@gmail.com
+
+jobs:
+  sync:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.6
+      # from pdm
+      - name: Set Variables
+        id: set_variables
+        run: |
+          echo "::set-output name=PY::$(python -c 'import hashlib, sys;print(hashlib.sha256(sys.version.encode()+sys.executable.encode()).hexdigest())')"
+          echo "::set-output name=PIP_CACHE::$(pip cache dir)"
+
+      - name: Cache PIP
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.set_variables.outputs.PIP_CACHE }}
+          key: Ubuntu-pip-${{ steps.set_variables.outputs.PY }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        if: steps.pip-cache.outputs.cache-hit != 'true'
+
+      - name: Replace README MAKE KINDLE INFO
+        run: |
+          python kindle.py '${{ github.secrets.kindle_cookie}}' --is-cn # delete --is-cn if you are using com
+      - name: Push new README
+        uses: github-actions-x/commit@v2.6
+        with:
+          github-token: ${{ secrets.G_T }}
+          commit-message: "Replace README"
+          files: README.md files
+          rebase: 'true'
+          name: ${{ env.GITHUB_NAME }}
+          email: ${{ env.GITHUB_EMAIL }}
+
