@@ -2,7 +2,7 @@
 
 # Show my kindle status on GitHub
 
-# How TO:
+# How to:
 
 Clone or fork this repo
 
@@ -24,6 +24,10 @@ python3 kindle.py $'{amazon.cn cookie}' --is-cn
 
 python3 kindle.py $'{amazon.com cookie}'
 ```
+
+Or:
+
+You can add `KINDLE_COOKIE` secret using with `GitHub Actions`
 
 <!--START_SECTION:my_kindle-->
 

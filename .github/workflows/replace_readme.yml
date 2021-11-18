@@ -1,6 +1,13 @@
 name: Replace KINDLE README
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - kindle.py
   workflow_dispatch:
 
 env:
@@ -39,7 +46,7 @@ jobs:
 
       - name: Replace README MAKE KINDLE INFO
         run: |
-          python kindle.py '${{ github.secrets.kindle_cookie}}' --is-cn # delete --is-cn if you are using com
+          python kindle.py '${{ github.secrets.KINDLE_COOKIE}}' --is-cn # delete --is-cn if you are using com
       - name: Push new README
         uses: github-actions-x/commit@v2.6
         with:
