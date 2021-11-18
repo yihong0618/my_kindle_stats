@@ -52,7 +52,7 @@ jobs:
         with:
           github-token: ${{ secrets.G_T }}
           commit-message: "Replace README"
-          files: README.md files
+          files: README.md
           rebase: 'true'
           name: ${{ env.GITHUB_NAME }}
           email: ${{ env.GITHUB_EMAIL }}
