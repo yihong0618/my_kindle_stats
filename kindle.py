@@ -16,6 +16,9 @@ KINDLE_CN_SINGLE_BOOK_URL = (
     KINDLE_CN_BASE_URL + "titlesCompleted/{book_id}?isPDoc={is_doc}"
 )
 
+AMAZON_BOOK_URL = "https://www.amazon.com/dp/{book_id}"
+AMAZON_CN_BOOK_URL = "https://www.amazon.cn/dp/{book_id}"
+
 KINDLE_HEADER = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) "
     "AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/1AE148",
@@ -54,6 +57,7 @@ class Kindle:
         self.KINDLE_BOOK_URL = (
             KINDLE_CN_SINGLE_BOOK_URL if self.is_cn else KINDLE_SINGLE_BOOK_URL
         )
+        self.AMAZON_URL = AMAZON_CN_BOOK_URL if self.is_cn else AMAZON_BOOK_URL
         self.has_session = False
 
     def _parse_kindle_cookie(self):
@@ -96,6 +100,9 @@ class Kindle:
         if slice_index != -1:
             book_title = book_title[:slice_index]
         book_title = book_title.replace(" ", "")
+        if is_doc == "false":
+            book_url = self.AMAZON_URL.format(book_id=book_id)
+            book_title = f"[{book_title}]({book_url})"
         book_authors = book_info.get("authors")
         if len(book_authors) > 2:
             book_authors = ",".join(book_authors[:2]) + "..."
