@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.5
+        uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -48,7 +48,7 @@ jobs:
         run: |
           python kindle.py '${{ secrets.KINDLE_COOKIE}}' --is-cn # delete --is-cn if you are using com
       - name: Push new README
-        uses: github-actions-x/commit@v2.6
+        uses: github-actions-x/commit@v2.8
         with:
           github-token: ${{ secrets.G_T }}
           commit-message: "Replace README"
