@@ -59,6 +59,7 @@ class Kindle:
         )
         self.AMAZON_URL = AMAZON_CN_BOOK_URL if self.is_cn else AMAZON_BOOK_URL
         self.has_session = False
+        self.csrf_token = ""
 
     def _parse_kindle_cookie(self):
         cookie = SimpleCookie()
@@ -125,6 +126,8 @@ class Kindle:
             book_title, authors = self.get_single_read_book_info(
                 title.get("asin"), is_doc
             )
+            if not book_title:
+                continue
             title["book_title"] = book_title
             title["authors"] = authors
             result.append(title)
