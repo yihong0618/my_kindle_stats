@@ -42,6 +42,7 @@ def replace_readme_comments(file_name, comment_str, comments_name):
             text,
             flags=re.DOTALL,
         )
+        text = text + "hhhh"
         f.seek(0)
         f.write(text)
         f.truncate()
