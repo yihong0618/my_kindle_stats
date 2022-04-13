@@ -126,8 +126,8 @@ class Kindle:
             book_title, authors = self.get_single_read_book_info(
                 title.get("asin"), is_doc
             )
-            if not book_title:
-                continue
+            #if not book_title:
+            #    continue
             title["book_title"] = book_title
             title["authors"] = authors
             result.append(title)

@@ -21,7 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -49,21 +52,13 @@ jobs:
           python kindle.py '${{ secrets.KINDLE_COOKIE}}' --is-cn # delete --is-cn if you are using com
           
       # Fix for the unsafe repo error: https://github.com/repo-sync/pull-request/issues/84
-#       - name: Run safe dir
-#         run: |
-#           git config --global --add safe.directory /github/workspace
+      - name: Run safe dir
+        run: |
+          git config --global --add safe.directory /github/workspace
       
       - name: Push new README
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.head_ref }}
-#         uses: github-actions-x/commit@master
-#         with:
-#           github-token: ${{ secrets.G_T }}
-#           commit-message: "Replace README"
-#           files: README.md
-#           rebase: 'true'
-#           name: ${{ env.GITHUB_NAME }}
-#           email: ${{ env.GITHUB_EMAIL }}
 
