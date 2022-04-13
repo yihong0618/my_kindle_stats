@@ -42,7 +42,6 @@ def replace_readme_comments(file_name, comment_str, comments_name):
             text,
             flags=re.DOTALL,
         )
-        text = text + "hhhh"
         f.seek(0)
         f.write(text)
         f.truncate()
@@ -127,8 +126,8 @@ class Kindle:
             book_title, authors = self.get_single_read_book_info(
                 title.get("asin"), is_doc
             )
-            #if not book_title:
-            #    continue
+            if not book_title:
+                continue
             title["book_title"] = book_title
             title["authors"] = authors
             result.append(title)

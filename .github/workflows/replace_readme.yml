@@ -55,12 +55,11 @@ jobs:
       - name: Run safe dir
         run: |
           git config --global --add safe.directory /github/workspace
-      
-      - name: Push new README
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.G_T }}
-          branch: ${{ github.head_ref }}
-          force: true
 
+      - name: Push README
+        run: |
+          git config --local user.email "${{ env.GITHUB_EMAIL }}"
+          git config --local user.name "${{ env.GITHUB_EMAIL }}"
+          git commit -a -m 'update new readme' || echo "nothing to commit"
+          git push || echo "nothing to push"
 
