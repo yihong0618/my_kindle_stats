@@ -59,6 +59,8 @@ jobs:
       - name: Push new README
         uses: actions-js/push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.G_T }}
           branch: ${{ github.head_ref }}
+          force: true
+
 
