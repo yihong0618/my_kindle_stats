@@ -112,7 +112,6 @@ class Kindle:
         return book_title, book_authors
 
     def make_all_books_list(self):
-        year = datetime.now().year
         self.make_session()
         year_books_info = self.get_kindle_read_data()
         titles_read = year_books_info.get("goal_info", {}).get("titles_read")
@@ -120,8 +119,6 @@ class Kindle:
             return
         result = []
         for title in titles_read:
-            if int(title.get("date_read", "1926-08-17")[:4]) < year:
-                break
             is_doc = title.get("content_type", "") == "PDOC"
             book_title, authors = self.get_single_read_book_info(
                 title.get("asin"), is_doc
