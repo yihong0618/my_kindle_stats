@@ -58,8 +58,9 @@ jobs:
 
       - name: Push README
         run: |
-          git config --local user.email "${{ env.GITHUB_EMAIL }}"
-          git config --local user.name "${{ env.GITHUB_NAME }}"
-          git commit -a -m 'update new readme' || echo "nothing to commit"
-          git push || echo "nothing to push"
+          git config --local user.name yihong0618
+          git config --local user.email zouzou0208@gmail.com
+          git add .
+          git commit -m "generated readme" || echo "no need to commit "
+          git push || echo "no file change"
 
