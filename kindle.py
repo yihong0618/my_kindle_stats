@@ -95,11 +95,8 @@ class Kindle:
         if not book_info:
             print(f"There's no book info if id {book_id}")
         book_title = book_info["title"]
-        slice_index = book_title.find("(")
-        if slice_index == -1:
-            slice_index = book_title.find("（")
-        if slice_index != -1:
-            book_title = book_title[:slice_index]
+        # filter the brackets in the book title
+        book_title = re.sub(r'(\（[^)]*\）)|(\([^)]*\))|(\【[^)]*\】)|(\[[^)]*\])|(\s)', '', book_title)
         book_title = book_title.replace(" ", "")
         if is_doc == "false":
             book_url = self.AMAZON_URL.format(book_id=book_id)
