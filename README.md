@@ -1,3 +1,5 @@
+# 2022.6.20 起不再维护，功能将转到 --> [Kindle_download_helper](https://github.com/yihong0618/Kindle_download_helper)
+
 # my_kindle_stats
 
 # Show my kindle status on GitHub
